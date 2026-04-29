@@ -24,8 +24,12 @@ export const BioGeniusProvider = ({ children }: { children: React.ReactNode }) =
   const [loginError, setLoginError] = useState("");
 
   const [pressure, setPressure] = useState(5.0);
-  const [pressureHistory, setPressureHistory] = useState(generateInitialData());
+  const [pressureHistory, setPressureHistory] = useState<any[]>([]);
   const isAnomaly = pressure > 6.0 || pressure < 4.0;
+
+  useEffect(() => {
+    setPressureHistory(generateInitialData());
+  }, []);
   
   const [chatMessages, setChatMessages] = useState([
     { role: "ai", content: "Sistem AI Bio-Genius aktif. Siap membantu pemantauan dan optimasi plant." }
