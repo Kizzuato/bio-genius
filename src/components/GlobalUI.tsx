@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { useBioGenius } from "@/context/BioGeniusContext";
-import { Cpu, X, Send, Sparkles, Power, MessageCircle} from "lucide-react";
+import { Cpu, X, Send, Sparkles, Power, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -11,7 +11,7 @@ export default function GlobalUI({ children }: { children: React.ReactNode }) {
     isLoggedIn, password, username, setPassword, setUsername, handleLogin, loginError,
     isChatOpen, setIsChatOpen, chatMessages, isTyping, chatInput, setChatInput, handleSendMessage, showPrompts, setShowPrompts, activePrompts, setIsLoggedIn
   } = useBioGenius();
-  
+
   const chatEndRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
@@ -26,10 +26,10 @@ export default function GlobalUI({ children }: { children: React.ReactNode }) {
             <h1 className="text-3xl font-bold text-white tracking-tight mb-3">Bio-Genius</h1>
             <p className="text-slate-400">Monitoring & Optimizer Platform</p>
           </div>
-          
+
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl animate-in slide-in-from-bottom-8 fade-in duration-700 delay-150 fill-mode-backwards">
             <h2 className="text-xl font-semibold text-white mb-6">Operator Login</h2>
-            
+
             {loginError && (
               <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
                 {loginError}
@@ -39,27 +39,27 @@ export default function GlobalUI({ children }: { children: React.ReactNode }) {
             <form onSubmit={handleLogin} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">Username</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all"
                   placeholder="admin"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">Password</label>
-                <input 
-                  type="password" 
+                <input
+                  type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all"
                   placeholder="admin123"
                 />
               </div>
-              
-              <button 
+
+              <button
                 type="submit"
                 className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 rounded-xl transition-all hover:shadow-lg hover:shadow-indigo-600/25 flex items-center justify-center gap-2"
               >
@@ -83,13 +83,16 @@ export default function GlobalUI({ children }: { children: React.ReactNode }) {
             </div>
             <h1 className="text-lg font-bold text-white tracking-tight truncate min-w-0">Bio-Genius <span className="text-indigo-400 font-medium">Optimizer</span></h1>
           </div>
-          
+
           <div className="flex items-center gap-4 shrink-0">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700 shrink-0">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></div>
+              {/* <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></div>
               <span className="text-xs font-medium text-slate-300 whitespace-nowrap">System Online</span>
+            </div> */}
+              <div className="w-2 h-2 rounded-full bg-gray-500 animate-pulse shrink-0"></div>
+              <span className="text-xs font-medium text-slate-300 whitespace-nowrap">System Offline</span>
             </div>
-            <button 
+            <button
               onClick={() => setIsLoggedIn(false)}
               className="text-slate-400 hover:text-white transition-colors shrink-0"
               title="Logout"
@@ -98,7 +101,7 @@ export default function GlobalUI({ children }: { children: React.ReactNode }) {
             </button>
           </div>
         </div>
-        
+
         {/* Navigation Tabs */}
         {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-6 text-sm">
           <Link 
@@ -139,15 +142,14 @@ export default function GlobalUI({ children }: { children: React.ReactNode }) {
 
           <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-950/50">
             {chatMessages.map((msg: any, idx: number) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
-                <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
-                  msg.role === "user" 
-                    ? "bg-indigo-600 text-white rounded-tr-sm shadow-md" 
+                <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${msg.role === "user"
+                    ? "bg-indigo-600 text-white rounded-tr-sm shadow-md"
                     : "bg-slate-800 text-slate-200 border border-slate-700 rounded-tl-sm shadow-md"
-                }`}>
+                  }`}>
                   {msg.content.split('\n').map((line: string, i: number) => (
                     <React.Fragment key={i}>
                       {line.split(/(\*\*.*?\*\*)/).map((part: string, j: number) => {
@@ -162,7 +164,7 @@ export default function GlobalUI({ children }: { children: React.ReactNode }) {
                 </div>
               </div>
             ))}
-            
+
             {isTyping && (
               <div className="flex justify-start animate-in fade-in slide-in-from-bottom-2">
                 <div className="bg-slate-800 border border-slate-700 text-slate-400 rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1.5 items-center">
@@ -191,22 +193,22 @@ export default function GlobalUI({ children }: { children: React.ReactNode }) {
             )}
 
             <div className="flex items-center gap-2 bg-slate-950 border border-slate-800 rounded-xl p-1 shadow-inner focus-within:ring-1 focus-within:ring-indigo-500/50 focus-within:border-indigo-500/50 transition-all">
-              <button 
+              <button
                 onClick={() => setShowPrompts(!showPrompts)}
                 className={`p-2 rounded-lg transition-colors ${showPrompts ? 'text-indigo-400 bg-indigo-500/10' : 'text-slate-500 hover:text-slate-300'}`}
                 title="Toggle Saran Pertanyaan"
               >
                 <Sparkles className="w-4 h-4" />
               </button>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
                 placeholder="Ketik manual atau pilih template..."
                 className="flex-1 bg-transparent px-3 py-2 text-sm text-white focus:outline-none placeholder:text-slate-500"
               />
-              <button 
+              <button
                 onClick={() => handleSendMessage()}
                 disabled={!chatInput.trim() || isTyping}
                 className="p-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
@@ -219,7 +221,7 @@ export default function GlobalUI({ children }: { children: React.ReactNode }) {
       )}
 
       {/* Floating Button */}
-      <button 
+      <button
         onClick={() => setIsChatOpen(!isChatOpen)}
         className="fixed bottom-6 right-6 w-14 h-14 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full flex items-center justify-center shadow-lg shadow-indigo-500/30 transition-all hover:scale-105 z-40"
       >

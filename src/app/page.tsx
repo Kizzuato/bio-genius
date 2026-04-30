@@ -48,7 +48,7 @@ export default function DashboardPage() {
             <div className="mt-6 flex items-center justify-between text-sm">
               <div className="flex items-center gap-2 text-slate-400">
                 <span className="inline-block w-2 h-2 rounded-full bg-slate-600"></span>
-                <span>Target: 5.0 bar</span>
+                <span>Target: - bar</span>
               </div>
               <div className={`font-medium ${isAnomaly ? 'text-red-400' : 'text-emerald-400'}`}>
                 {isAnomaly ? 'Kritis' : 'Optimal'}
@@ -66,34 +66,34 @@ export default function DashboardPage() {
                 </span>
               </div>
             </div>
-            
+
             <div className="h-72 w-full min-w-0">
-              <ResponsiveContainer width="100%" height="100%">
+              <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                 <LineChart data={pressureHistory} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                  <XAxis 
-                    dataKey="time" 
-                    stroke="#64748b" 
+                  <XAxis
+                    dataKey="time"
+                    stroke="#64748b"
                     fontSize={12}
                     tickMargin={10}
                     minTickGap={30}
                   />
-                  <YAxis 
-                    domain={[3, 8]} 
-                    stroke="#64748b" 
+                  <YAxis
+                    domain={[3, 8]}
+                    stroke="#64748b"
                     fontSize={12}
                     tickCount={6}
                     tickFormatter={(val) => `${val} bar`}
                   />
-                  <Tooltip 
+                  <Tooltip
                     contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', borderRadius: '8px' }}
                     itemStyle={{ color: '#818cf8' }}
                     labelStyle={{ color: '#94a3b8', marginBottom: '4px' }}
                   />
-                  <Line 
-                    type="monotone" 
-                    dataKey="pressure" 
-                    stroke={isAnomaly ? "#f87171" : "#818cf8"} 
+                  <Line
+                    type="monotone"
+                    dataKey="pressure"
+                    stroke={isAnomaly ? "#f87171" : "#818cf8"}
                     strokeWidth={3}
                     dot={false}
                     activeDot={{ r: 6, fill: isAnomaly ? "#ef4444" : "#6366f1", stroke: "#1e293b", strokeWidth: 2 }}
@@ -111,19 +111,17 @@ export default function DashboardPage() {
             <History className="w-5 h-5 text-orange-400" />
             <h3 className="font-semibold text-lg tracking-tight">Histori Alert</h3>
           </div>
-          
+
           <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
             {alertHistory.map((alert: any) => (
-              <div key={alert.id} className={`p-4 rounded-r-lg border-l-4 ${
-                alert.type === 'critical' ? 'bg-red-950/30 border-red-500' :
-                alert.type === 'warning' ? 'bg-orange-950/30 border-orange-500' :
-                'bg-slate-800/50 border-slate-600'
-              }`}>
-                <div className={`text-xs mb-1 ${
-                  alert.type === 'critical' ? 'text-red-400' :
-                  alert.type === 'warning' ? 'text-orange-400' :
-                  'text-slate-400'
-                }`}>Pukul {alert.time}</div>
+              <div key={alert.id} className={`p-4 rounded-r-lg border-l-4 ${alert.type === 'critical' ? 'bg-red-950/30 border-red-500' :
+                  alert.type === 'warning' ? 'bg-orange-950/30 border-orange-500' :
+                    'bg-slate-800/50 border-slate-600'
+                }`}>
+                <div className={`text-xs mb-1 ${alert.type === 'critical' ? 'text-red-400' :
+                    alert.type === 'warning' ? 'text-orange-400' :
+                      'text-slate-400'
+                  }`}>Pukul {alert.time}</div>
                 <div className="text-sm font-medium text-slate-200">{alert.message}</div>
               </div>
             ))}
