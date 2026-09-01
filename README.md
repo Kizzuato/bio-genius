@@ -1,8 +1,12 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bio-Genius Optimizer
+
+Bio-Genius Optimizer adalah aplikasi dashboard berbasis web untuk monitoring dan optimasi parameter tekanan pada plant Bio-CNG. Aplikasi ini menyediakan login operator, pemantauan tekanan kompresor, grafik riwayat tekanan, histori alert, simulasi anomali, tindakan stabilisasi, serta AI Virtual Consultant untuk membantu operator membaca kondisi sistem dan menentukan rekomendasi tindakan.
+
+Dokumen deskripsi akademik dan pemetaan bobot RPS Kecerdasan Buatan IFB305 serta Computer Vision IFB301 tersedia di [docs/APPLICATION_DESCRIPTION.md](docs/APPLICATION_DESCRIPTION.md).
 
 ## Getting Started
 
-First, run the development server:
+Jalankan development server:
 
 ```bash
 npm run dev
@@ -14,23 +18,40 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000) di browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Menjalankan modul APD YOLO
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Terminal kedua untuk backend computer vision:
 
-## Learn More
+```bash
+pip install -r python/requirements.txt
+npm run api
+```
 
-To learn more about Next.js, take a look at the following resources:
+Backend sekarang otomatis mengunduh model publik Hugging Face `hf://Hexmon/vyra-yolo-ppe-detection/best.pt` ke cache lokal pada run pertama. Kalau kamu punya weights APD sendiri, set `YOLO_WEIGHTS_PATH` ke path lokal file `.pt` itu untuk override.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Credential demo:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Username: `admin`
+- Password: `admin123`
 
-## Deploy on Vercel
+## Fitur
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Monitoring tekanan kompresor dan status sistem.
+- Grafik riwayat tekanan secara real-time.
+- Histori alert untuk gangguan dan tindakan operator.
+- Simulasi anomali tekanan untuk training mode.
+- Tindakan mitigasi untuk stabilisasi tekanan.
+- AI Virtual Consultant berbasis simulasi untuk analisis kondisi dan rekomendasi.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Relevansi Mata Kuliah
+
+Aplikasi ini paling kuat mendukung mata kuliah Kecerdasan Buatan IFB305 pada aspek analisis masalah, reasoning, rekomendasi tindakan, dan integrasi konsep AI. Aplikasi juga relevan dengan Computer Vision IFB301 sebagai rancangan pengembangan lanjutan untuk inspeksi visual plant berbasis citra/video, segmentasi, ekstraksi fitur, dan object detection/classification.
+
+Ringkasan bobot utama:
+
+- Kecerdasan Buatan IFB305: CPMK 1 60%, CPMK 2 40%, CPL-2 27%, CPL-8 46%, CPL-10 27%.
+- Computer Vision IFB301: CPMK 1 45%, CPMK 2 55%, CPL-2 29%, CPL-8 30%, CPL-9 41%.
+
+Detail pemetaan SubCPMK dan CPL ada pada dokumen deskripsi aplikasi.

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { useBioGenius } from "@/context/BioGeniusContext";
+import { useBioGenius, type ChatMessage } from "@/context/BioGeniusContext";
 import { Cpu, X, Send, Sparkles, Power, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -102,21 +102,20 @@ export default function GlobalUI({ children }: { children: React.ReactNode }) {
           </div>
         </div>
 
-        {/* Navigation Tabs */}
-        {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-6 text-sm">
-          <Link 
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-6 text-sm overflow-x-auto">
+          <Link
             href="/"
-            className={`py-3 font-medium border-b-2 transition-colors ${pathname === '/' ? 'border-indigo-500 text-indigo-400' : 'border-transparent text-slate-400 hover:text-slate-300'}`}
+            className={`py-3 font-medium border-b-2 transition-colors whitespace-nowrap ${pathname === '/' ? 'border-cyan-400 text-cyan-300' : 'border-transparent text-slate-400 hover:text-slate-300'}`}
           >
-            Dashboard Utama
+            Dashboard Visual-AI
           </Link>
-          <Link 
+          <Link
             href="/control"
-            className={`py-3 font-medium border-b-2 transition-colors ${pathname === '/control' ? 'border-indigo-500 text-indigo-400' : 'border-transparent text-slate-400 hover:text-slate-300'}`}
+            className={`py-3 font-medium border-b-2 transition-colors whitespace-nowrap ${pathname === '/control' ? 'border-cyan-400 text-cyan-300' : 'border-transparent text-slate-400 hover:text-slate-300'}`}
           >
-            Kontrol Panel
+            APD YOLO
           </Link>
-        </div> */}
+        </div>
       </header>
 
       {/* Main Content Rendered Here */}
@@ -141,7 +140,7 @@ export default function GlobalUI({ children }: { children: React.ReactNode }) {
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-950/50">
-            {chatMessages.map((msg: any, idx: number) => (
+            {chatMessages.map((msg: ChatMessage, idx: number) => (
               <div
                 key={idx}
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
